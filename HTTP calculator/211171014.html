@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>\
+    <link rel="style" href="style.css">
+    <meta charset="UTF-8">
+    <title>Simple Average Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: white;
+            padding: 20px;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            background-color: red;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"] {
+            width: calc(100% - 22px); /* Adjusted for padding and border */
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid wheat;
+            border-radius: 4px;
+            box-sizing: border-box; /* Ensures padding and border are included in width */
+        }
+        button {
+            width: 100%;
+            background-color: green;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: green;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: wheat;
+            border: 1px solid yellow;
+            border-radius: 4px;
+        }
+        .error {
+            color: red;
+            margin-top: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Simple Average Calculator</h2>
+        <label for="numbersInput">Enter numbers (separated by commas):</label>
+        <input type="text" id="numbersInput" placeholder="e.g., 2, 4, 6, 8">
+        <button onclick="calculateAverage()">Calculate Average</button>
+
+        <div id="result" class="result" style="display: none;">
+            <h3>Result</h3>
+            <p><strong>Input Numbers:</strong> <span id="inputNumbers"></span></p>
+            <p><strong>Average:</strong> <span id="averageResult"></span></p>
+        </div>
+
+        <div id="error" class="error"></div>
+    </div>
+
+    <script>
+        function calculateAverage() {
+            const numbersInput = document.getElementById('numbersInput').value;
+            const numbersArray = numbersInput.split(',').map(num => parseFloat(num.trim()));
+
+            if (numbersArray.some(isNaN)) {
+                document.getElementById('error').textContent = 'Please enter valid numbers separated by commas.';
+                document.getElementById('result').style.display = 'none';
+                return;
+            }
+
+            const sum = numbersArray.reduce((acc, num) => acc + num, 0);
+            const avg = sum / numbersArray.length;
+
+            document.getElementById('inputNumbers').textContent = numbersArray.join(', ');
+            document.getElementById('averageResult').textContent = avg.toFixed(2);
+            document.getElementById('result').style.display = 'block';
+            document.getElementById('error').textContent = '';
+        }
+    </script>
+</body>
+</html>
